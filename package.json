@@ -1,0 +1,27 @@
+{
+  "name": "butler",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build:live",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/app.ts"
+  },
+  "nodemonConfig": {
+    "watch": ["src/"]
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "lowdb": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/lowdb": "^1.0.5",
+    "@types/node": "^10.9.4",
+    "nodemon": "^1.18.4",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  }
+}
