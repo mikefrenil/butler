@@ -1,22 +1,24 @@
-import { Express, IRoute } from "express-serve-static-core";
-import low from "lowdb";
-import RestaurantService from "../service/RestaurantService";
-import express, { Router } from "express";
+import { IRoute } from "express-serve-static-core";
+import { Router } from "express";
 import Restaurant from "../model/Restaurant";
+import { RestaurantService } from "../service/RestaurantService";
+import { Controller, Get, Render, Post, Authenticated, Required, BodyParams, Delete } from "@tsed/common";
 
+@Controller("/restaurants")
 export default class RestaurantResource {
-  route!: IRoute;
+  restaurantService!: RestaurantService;
 
-  constructor(router: Router, db: low.LowdbSync<any>, restaurantService: RestaurantService) {
-    this.route = router.route("/restaurants");
+  constructor(restaurantService: RestaurantService) {
+    this.restaurantService = restaurantService;
+  }
 
-    this.route.get(async (_, res) => {
-      res.json(await restaurantService.get(db));
-    });
+  @Get("/")
+  async getRestaurantList(): Promise<Array<Restaurant>> {
+    return await this.restaurantService.get();
+  }
 
-    this.route.post(async (req: { body: { name: string } }, res) => {
-      const restaurant: Restaurant = new Restaurant(req.body.name);
-      res.json(await restaurantService.create(db, restaurant));
-    });
+  @Post("/")
+  async createRestaurant(@BodyParams() restaurant: Restaurant): Promise<Restaurant> {
+    return await this.restaurantService.create(restaurant);
   }
 }
