@@ -1,7 +1,7 @@
 import { Service } from "@tsed/common";
 import Restaurant from "../model/Restaurant";
 import { DbService } from "./DbService";
-import { ObjectID, ObjectId } from "bson";
+import { ObjectID } from "bson";
 @Service()
 export class RestaurantService {
   private dbService: DbService;

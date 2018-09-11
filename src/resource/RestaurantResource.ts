@@ -1,9 +1,6 @@
-import { IRoute } from "express-serve-static-core";
-import { Router } from "express";
 import Restaurant from "../model/Restaurant";
 import { RestaurantService } from "../service/RestaurantService";
-import { Controller, Get, Render, Post, Authenticated, Required, BodyParams, Delete, PathParams } from "@tsed/common";
-import { ObjectID } from "bson";
+import { Controller, Get, Post, BodyParams, PathParams } from "@tsed/common";
 
 @Controller("/restaurants")
 export default class RestaurantResource {
