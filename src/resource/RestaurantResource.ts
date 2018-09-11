@@ -2,7 +2,8 @@ import { IRoute } from "express-serve-static-core";
 import { Router } from "express";
 import Restaurant from "../model/Restaurant";
 import { RestaurantService } from "../service/RestaurantService";
-import { Controller, Get, Render, Post, Authenticated, Required, BodyParams, Delete } from "@tsed/common";
+import { Controller, Get, Render, Post, Authenticated, Required, BodyParams, Delete, PathParams } from "@tsed/common";
+import { ObjectID } from "bson";
 
 @Controller("/restaurants")
 export default class RestaurantResource {
@@ -14,11 +15,21 @@ export default class RestaurantResource {
 
   @Get("/")
   async getRestaurantList(): Promise<Array<Restaurant>> {
-    return await this.restaurantService.get();
+    return await this.restaurantService.getAll();
+  }
+
+  @Get("/:id")
+  async getRestaurant(@PathParams("id") id: string): Promise<Restaurant | null> {
+    return await this.restaurantService.get(id);
   }
 
   @Post("/")
   async createRestaurant(@BodyParams() restaurant: Restaurant): Promise<Restaurant> {
     return await this.restaurantService.create(restaurant);
+  }
+
+  @Post("/:id")
+  async updateRestaurant(@PathParams("id") id: string, @BodyParams() restaurant: Restaurant): Promise<Restaurant> {
+    return await this.restaurantService.update(id, restaurant);
   }
 }
