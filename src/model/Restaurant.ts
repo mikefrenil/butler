@@ -1,7 +1,6 @@
-import { ObjectID } from "bson";
+import { EntityBase } from "./EntityBase";
 
-export default interface Restaurant {
-  _id?: ObjectID;
+export default interface Restaurant extends EntityBase {
   name: string;
   menuLinks?: string[];
   lastOrder?: Date;

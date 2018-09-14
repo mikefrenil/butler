@@ -1,20 +1,20 @@
-import { Db, MongoClient } from "mongodb";
 import { Service } from "@tsed/common";
-import Restaurant from "../model/Restaurant";
+import { Db, MongoClient } from "mongodb";
+import { logger } from "../support/logger";
+import config from "config";
 
 @Service()
 export class DbService {
+  // tslint:disable-next-line:variable-name
   private static _store: Db;
-  private static _client: MongoClient;
 
   constructor() {
-    MongoClient.connect("mongodb://127.0.0.1:27017")
+    MongoClient.connect(`mongodb://${config.get("mongodb.host")}:${config.get("mongodb.port")}`)
       .then(client => {
-        DbService._client = client;
         DbService._store = client.db();
       })
       .catch(err => {
-        console.log(err);
+        logger.error(err);
         process.exit(1);
       });
   }
@@ -22,8 +22,4 @@ export class DbService {
   get store() {
     return DbService._store;
   }
-}
-
-export interface Schema {
-  restaurants: Array<Restaurant>;
 }

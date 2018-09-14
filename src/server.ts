@@ -1,6 +1,7 @@
 import express from "express";
 import { ServerLoader, ServerSettings, GlobalAcceptMimesMiddleware } from "@tsed/common";
 import Path = require("path");
+import { logger } from "./support/logger";
 
 @ServerSettings({
   rootDir: Path.resolve(__dirname), // optional. By default it's equal to process.cwd()
@@ -22,10 +23,10 @@ export class Server extends ServerLoader {
   }
 
   public $onReady() {
-    console.log("Server started...");
+    logger.info("Server started...");
   }
 
   public $onServerInitError(err: any) {
-    console.error(err);
+    logger.error(err);
   }
 }

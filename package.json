@@ -15,10 +15,13 @@
   "dependencies": {
     "@tsed/common": "^4.31.7",
     "@tsed/core": "^4.31.7",
+    "config": "^2.0.1",
     "express": "^4.16.3",
+    "log4js": "^3.0.5",
     "mongodb": "^3.1.4"
   },
   "devDependencies": {
+    "@types/config": "0.0.34",
     "@types/express": "^4.16.0",
     "@types/mongodb": "^3.1.6",
     "@types/node": "^10.9.4",
